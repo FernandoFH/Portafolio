@@ -1,2 +1,2 @@
 # FernandoH.github.io
-Software Developer || Portfolio profesional 
+Telecommunications Engineer || Software Developer  || Portfolio profesional 
