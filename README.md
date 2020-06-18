@@ -1,5 +1,8 @@
-<<<<<<< HEAD
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
+# FernandoH.github.io
+Telecommunications Engineer || Software Developer  || Portfolio professional 
+
+###################################3
+
 <p align="center">
   <a href="https://www.gatsbyjs.org">
     <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
@@ -159,11 +162,3 @@ Looking for more guidance? The perfect place to learn more about GatsbyJS is the
 You can also directly deploy this starter via Netlify.
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/niklasmtj/gatsby-starter-julia)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
-=======
-# FernandoH.github.io
-Telecommunications Engineer || Software Developer  || Portfolio professional 
-
-##### Primer Commit  
->>>>>>> 7e04e8e741ae8842dcb749dc4daec94f10732016
