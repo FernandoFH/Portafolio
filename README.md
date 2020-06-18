@@ -1,7 +1,7 @@
 # FernandoH.github.io
 Telecommunications Engineer || Software Developer  || Portfolio professional 
 
-###################################3
+###################################
 
 <p align="center">
   <a href="https://www.gatsbyjs.org">
