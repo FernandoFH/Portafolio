@@ -1,92 +1,15 @@
 # FernandoH.github.io
 Telecommunications Engineer || Software Developer  || Portfolio professional 
 
-###################################
-
 <p align="center">
   <a href="https://www.gatsbyjs.org">
     <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
   </a>
 </p>
+[GatsbyJS](https://www.gatsbyjs.org/) Starter Julia
 <h1 align="center">
-  Gatsby Starter Julia
+  Author: Niklas Metje hi@niklasmtj.de
 </h1>
-
-[GatsbyJS](https://www.gatsbyjs.org/) is a free and open source static website builder build on React. It's one implementation of the [JAMstack](https://jamstack.org/) idea which creates high speed webpages.
-
-## 📚 Features:
-
-- Landingpage
-- Blog overview page
-- Markdown sourcing from /content folder
-- Estimated reading time for each post
-- Styled components with emotion
-- Netlify deployment friendly
-- Nunito font included as npm module
-- Syntax highlighting with prismjs
-- Textmarkerstyle headings inspired by Basecamp
-- Site meta tags with React Helmet
-- Plugins for offline support
-- Draft blog posts not published
-
-## 👨🏻‍💻 Customization
-
-Create new pages like an About page in the `/pages` directory.
-The minimum code is:
-
-```js
-import React from "react"
-
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-
-const PageName = () => (
-  <Layout>
-    <SEO title="PageName" keywords={[`gatsby`, `application`, `react`]} />
-    //CONTENT HERE
-  </Layout>
-)
-
-export default PageName
-```
-
-To change the name on the landing page please modify the `title` in `gatsby-config.js`
-
-The Nunito typeface is included as a npm module in `gatsby-browser.js` and in `/components/layout.css`
-
----
-
-This Gatsby starter is built on top of the official [gatsby-starter-default](https://github.com/gatsbyjs/gatsby-starter-default). You can find a quick start guide in the following lines. There are the most important files explained.
-
-## 🚀 Quick start
-
-This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
-
-1.  **Create a Gatsby site.**
-
-    Use the Gatsby CLI to create a new site, specifying the julia starter.
-
-    ```sh
-    # create a new Gatsby site using the julia starter
-    gatsby new julia-starter https://github.com/niklasmtj/gatsby-starter-julia
-    ```
-
-1.  **Start developing.**
-
-    Navigate into your new site’s directory and start it up.
-
-    ```sh
-    cd julia-starter/
-    gatsby develop
-    ```
-
-1.  **Open the source code and start editing!**
-
-    Your site is now running at `http://localhost:8000`!
-
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
-
-    Open the `julia-starter` directory in your code editor of choice and edit `src/pages/index.js` or `src/pages/blog.js`. Save your changes and the browser will update in real time!
 
 ## 🧐 What's inside?
 

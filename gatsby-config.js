@@ -3,10 +3,11 @@ module.exports = {
     title: `Fernando H`,
     subtitle: `Telecom Engineer / Software Developer`,
     description: `Portfolio professional.`,
-    author: `@niklasmtj`,
+    author: `@FernandoF_H`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    'gatsby-plugin-dark-mode',
     {
       resolve: `gatsby-source-filesystem`,
       options: {

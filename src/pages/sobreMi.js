@@ -1,9 +1,13 @@
 import React from 'react'
 
-export default function sobreMi() {
-    return (
-        <div>
-            <h1>Sobre Mi</h1>
-        </div>
-    )
-}
+import Layout from "../components/layout"
+import SEO from "../components/seo"
+
+const sobreMi = () => (
+    <Layout>
+      <SEO title="sobreMi" keywords={[`gatsby`, `application`, `react`]} />
+      <h1>Sobre Mi</h1>
+    </Layout>
+  )
+  
+  export default sobreMi

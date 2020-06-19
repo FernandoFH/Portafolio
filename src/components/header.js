@@ -77,16 +77,26 @@ const Header = ({ siteTitle }) => (
     <Content>
       <p>
         <HomeLink to="/">{siteTitle}</HomeLink>
-        <NavLink to="/">Portafolio</NavLink>
-        <NavLink to="/">Sobre Mi</NavLink>
-        <NavLink to="/">Blog</NavLink>
+        <NavLink to="/portafolio">Portafolio</NavLink>
+        <NavLink to="/sobreMi">Sobre Mi</NavLink>
         <GitHubLink href="https://github.com/FernandoFH" target="_blank">
           GitHub
         </GitHubLink>
-      </p>
+        </p>
+        <darkmode>
+        <div style={{
+              backgroundColor: 'var(--bg)',
+              color: 'var(--textNormal)',
+              transition: 'color 0.2s ease-out, background 0.2s ease-out',}}></div>
+        </darkmode>
     </Content>
   </SiteHeader>
 )
+
+
+
+
+
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
