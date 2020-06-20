@@ -1,15 +1,15 @@
-# FernandoH.github.io
-Telecommunications Engineer || Software Developer  || Portfolio professional 
+# Fernando Hernandez || Portfolio professional 
+Telecommunications Engineer || Software Developer  
 
 <p align="center">
   <a href="https://www.gatsbyjs.org">
     <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
   </a>
 </p>
-[GatsbyJS](https://www.gatsbyjs.org/) Starter Julia
 <h1 align="center">
   Author: Niklas Metje hi@niklasmtj.de
 </h1>
+[GatsbyJS](https://www.gatsbyjs.org/) Starter Julia
 
 ## 🧐 What's inside?
 
