@@ -6,10 +6,6 @@ Telecommunications Engineer || Software Developer
     <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
   </a>
 </p>
-<h1 align="center">
-  Author: Niklas Metje hi@niklasmtj.de
-</h1>
-[GatsbyJS](https://www.gatsbyjs.org/) Starter Julia
 
 ## 🧐 What's inside?
 
@@ -85,3 +81,7 @@ Looking for more guidance? The perfect place to learn more about GatsbyJS is the
 You can also directly deploy this starter via Netlify.
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/niklasmtj/gatsby-starter-julia)
+
+## Author Starter: 
+Niklas Metje:  hi@niklasmtj.de
+[GatsbyJS](https://www.gatsbyjs.org/) Starter Julia
