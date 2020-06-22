@@ -9,6 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 import styled from "@emotion/styled"
+import Rrss from "./rrss"
 
 import Header from "./header"
 import "./layout.css"
@@ -26,7 +27,7 @@ const GatsbyLink = styled.a`
 
 const Footer = styled.footer`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 `
 
 const Layout = ({ children }) => (
@@ -46,11 +47,10 @@ const Layout = ({ children }) => (
         <Content>
           <main>{children}</main>
           <Footer>
-            <p>
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            </p>
+            <p>© {new Date().getFullYear()}, Built with {` `} 
             <GatsbyLink href="https://www.gatsbyjs.org">Gatsby</GatsbyLink>
+            </p>
+            <Rrss />
           </Footer>
         </Content>
       </>
