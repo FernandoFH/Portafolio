@@ -5,7 +5,7 @@ draft: false
 path: "/blog/code-example"
 ---
 
-## An Code example with PrismJS
+## An Code example 
 Gatsby-Starter-Julia uses the Atom Editor Theme.
 
 ```js

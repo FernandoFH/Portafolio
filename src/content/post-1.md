@@ -1,5 +1,5 @@
 ---
-title: "This is such a long headline and i dont know what to write so i keep continiung"
+title: "This is such"
 date: "2019-03-17"
 draft: false
 path: "/blog/example-title"

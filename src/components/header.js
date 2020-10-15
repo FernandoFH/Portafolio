@@ -56,10 +56,15 @@ const Header = ({ siteTitle }) => (
                   title="Portafolio"
                 > Portafolio
         </NavLink>
+        <NavLink  to="/blog"                     
+                  rel="noopener noreferrer"
+                  title="Blog"
+                > Blog
+        </NavLink>
         <NavLink  to="/sobreMi"                     
                   rel="noopener noreferrer"
                   title="Sobre Mi"
-                > Sobre Mi
+                > Sobre mi
          </NavLink>
         </p>
         <darkmode>
