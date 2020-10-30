@@ -6,7 +6,7 @@ import SEO from "../components/seo"
 const sobreMi = () => (
     <Layout>
       <SEO title="sobreMi" keywords={[`gatsby`, `application`, `react`]} />
-      <h1>Sobre mi</h1>
+      <h1>Sobre mí</h1>
     </Layout>
   )
   

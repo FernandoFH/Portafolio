@@ -18,15 +18,21 @@ const Content = styled.div`
   margin: 0 auto;
   max-width: 860px;
   padding: 0 1.0875rem 1rem;
-  padding-top: 0;
 `
 
 const GatsbyLink = styled.a`
   margin-left: 5px;
 `
 
+const GitHubPagesLink = styled.a`
+  margin-left: 0px;
+`
+
 const Footer = styled.footer`
+  padding: 0px;
+  margin: 0px;
   display: flex;
+  align-content: flex-end;
   justify-content: space-between;
 `
 
@@ -48,7 +54,19 @@ const Layout = ({ children }) => (
           <main>{children}</main>
           <Footer>
             <p>© {new Date().getFullYear()}, Built with {` `} 
-            <GatsbyLink href="https://www.gatsbyjs.org">Gatsby</GatsbyLink>
+              <GatsbyLink href="https://www.gatsbyjs.org"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Gatsbyjs Link"
+              >Gatsby
+              </GatsbyLink>
+              <span> & </span>
+              <GitHubPagesLink href="https://pages.github.com/"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               title="GitHub Pages Link"
+              >GitHub Pages
+              </GitHubPagesLink>
             </p>
             <Rrss />
           </Footer>

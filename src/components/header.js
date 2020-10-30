@@ -2,6 +2,7 @@ import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import PropTypes from "prop-types"
 import React from "react"
+import Darkmode from "./darkmode"
 
 const Content = styled.div`
   max-width: 860px;
@@ -44,7 +45,11 @@ const SiteHeader = styled.header`
   display: flex;
   align-content: center;
   justify-content: center;
-`
+
+  last-child {
+  align-content: flex-end;
+  justify-content: flex-end;
+  }`
 
 const Header = ({ siteTitle }) => (
   <SiteHeader>
@@ -64,16 +69,11 @@ const Header = ({ siteTitle }) => (
         <NavLink  to="/sobreMi"                     
                   rel="noopener noreferrer"
                   title="Sobre Mi"
-                > Sobre mi
-         </NavLink>
-        </p>
-        <darkmode>
-        <div style={{
-              backgroundColor: 'var(--bg)',
-              color: 'var(--textNormal)',
-              transition: 'color 0.2s ease-out, background 0.2s ease-out',}}></div>
-        </darkmode>
-    </Content>
+                > Sobre mí
+        </NavLink>
+        <Darkmode />
+      </p>
+      </Content>
   </SiteHeader>
 )
 
