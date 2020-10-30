@@ -3,7 +3,7 @@ Telecommunications Engineer || Software Developer
 
 <p align="center">
   <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
+    <img alt="Gatsby" src="./src/images/gatsby-logo.png" width="60" />
   </a>
 </p>
 
