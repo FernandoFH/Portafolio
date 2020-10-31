@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{kLAT:function(t,e,n){"use strict";n.r(e);n("q1tI");var b=n("Bl7J"),a=n("vrFN"),c=n("qKvR");e.default=function(){return Object(c.b)(b.a,null,Object(c.b)(a.a,{title:"sobreMi",keywords:["gatsby","application","react"]}),Object(c.b)("h1",null,"Sobre mi"))}}}]);
+//# sourceMappingURL=component---src-pages-sobre-mi-js-cbb100f1a0f7ae9c11ec.js.map
