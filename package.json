@@ -54,6 +54,6 @@
   "bugs": {
     "url": "https://github.com/FernandoFH/Portafolio/issues"
   },
-  "homepage": "https://FernandoFH.github.io/Portafolio",
+  "homepage": "https://FernandoFH.github.io/Portafolio"
   "main": "gatsby-browser.js"
 }
