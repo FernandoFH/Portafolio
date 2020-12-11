@@ -45,10 +45,6 @@ const SiteHeader = styled.header`
   display: flex;
   align-content: center;
   justify-content: center;
-
-  last-child {
-  align-content: flex-end;
-  justify-content: flex-end;
   }`
 
 const Header = ({ siteTitle }) => (
