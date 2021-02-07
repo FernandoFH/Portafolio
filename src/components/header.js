@@ -2,7 +2,7 @@ import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import PropTypes from "prop-types"
 import React from "react"
-import Darkmode from "./darkmode"
+// import Darkmode from "./darkmode"
 
 const Content = styled.div`
   max-width: 860px;
@@ -67,7 +67,6 @@ const Header = ({ siteTitle }) => (
                   title="Sobre Mi"
                 > Sobre mí
         </NavLink>
-        <Darkmode />
       </p>
       </Content>
   </SiteHeader>

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "@emotion/styled"
-import { FaGithubSquare, FaTwitterSquare, FaLinkedin, FaDev, FaHackerrank, FaMedium } from 'react-icons/fa';
+import { FaGithubSquare, FaTwitterSquare, FaLinkedin, FaDev, FaMedium } from 'react-icons/fa';
 
 const Rrss = styled.ul`
   margin-left: 15px;
@@ -54,15 +54,6 @@ export default function rrss() {
                      rel="noopener noreferrer"
                      title="Github Fernando H">
                     <FaGithubSquare size="20" />
-                  </a>
-              </Rrss>
-
-              <Rrss>
-                  <a href="https://www.hackerrank.com/fernandofh"
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     title="Hackerrank Fernando H">
-                    <FaHackerrank size="20" />
                   </a>
               </Rrss>
 
