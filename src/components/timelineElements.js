@@ -28,15 +28,24 @@ let timelineElements = [
     },
     {
       id: 4,
-      title: "Ingeniero de redes",
-      location: "Ericsson IT Solutions. Caracas, Venezuela",
+      title: "Oracle",
+      location: "Oracle Database 11g: Advanced PL/SQL",
       description:
-        "Monitoreo y gestión de soluciones de clientes corporativos de telefónica de diferentes servicios (Frame relay, MPLS, TDM, CPA).",
-      date: "Abril 2012 – Mayo 2013",
-      icon: "work",
+        " ",
+      date: "Septiembre 2014",
+      icon: "school",
     },
     {
       id: 5,
+      title: "Cisco Networking Academy",
+      location: "Cisco Certified Network Associate - CCNA (No certificate)",
+      description:
+        " ",
+      date: "Enero 2014 - Diciembre 2014",
+      icon: "school",
+    },
+    {
+      id: 6,
       title: "Latinux Inc",
       location: "Certified Linux Administrator",
       description:
@@ -45,12 +54,30 @@ let timelineElements = [
       icon: "school",
     },
     {
-      id: 6,
+      id: 7,
+      title: "Ingeniero de redes",
+      location: "Ericsson IT Solutions. Caracas, Venezuela",
+      description:
+        "Monitoreo y gestión de soluciones de clientes corporativos de telefónica de diferentes servicios (Frame relay, MPLS, TDM, CPA).",
+      date: "Abril 2012 – Mayo 2013",
+      icon: "work",
+    },
+    {
+      id: 8,
       title: "UNEFA",
       location: "Ingeniero en Telecomunicaciones",
       description:
         " ",
       date: "2005 - 2010",
+      icon: "school",
+    },
+    {
+      id: 9,
+      title: "IBM",
+      location: "Desarrollador de Software",
+      description:
+        " ",
+      date: "2008 - 2009",
       icon: "school",
     },
   ]
