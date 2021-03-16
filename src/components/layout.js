@@ -47,25 +47,30 @@ const Layout = ({ children }) => (
         }
       }
     `}
-    render={data => (
+    render={(data) => (
       <>
         <Header siteTitle={data.site.siteMetadata.title} />
         <Content>
           <main>{children}</main>
           <Footer>
-            <p>© {new Date().getFullYear()}, Built with {` `} 
-              <GatsbyLink href="https://www.gatsbyjs.org"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title="Gatsbyjs Link"
-              >Gatsby
+            <p>
+              © {new Date().getFullYear()}, Built with {` `}
+              <GatsbyLink
+                href="https://www.gatsbyjs.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Gatsbyjs Link"
+              >
+                Gatsby
               </GatsbyLink>
               <span> & </span>
-              <GitHubPagesLink href="https://pages.github.com/"
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               title="GitHub Pages Link"
-              >GitHub Pages
+              <GitHubPagesLink
+                href="https://pages.github.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="GitHub Pages Link"
+              >
+                GitHub Pages
               </GitHubPagesLink>
             </p>
             <Rrss />

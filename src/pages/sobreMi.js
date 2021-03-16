@@ -1,12 +1,12 @@
-import React from 'react'
-import Timeline from '../components/timeline'
+import React from "react"
+import Timeline from "../components/timeline"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 import styled from "@emotion/styled"
 
-const Contact  = styled.contact`
+const Contact = styled.contact`
   padding: 0px;
   margin: 0px;
   display: flex;
@@ -17,12 +17,12 @@ const Contact  = styled.contact`
 `
 
 const sobreMi = () => (
-    <Layout>
-      <SEO title="sobreMi" keywords={[`gatsby`, `application`, `react`]} />
-      <h1>Sobre mí</h1>
-      <Timeline /> 
-      <Contact />
-    </Layout>
-  )
-  
-  export default sobreMi
+  <Layout>
+    <SEO title="sobreMi" keywords={[`gatsby`, `application`, `react`]} />
+    <h1>Sobre mí</h1>
+    <Timeline />
+    <Contact />
+  </Layout>
+)
+
+export default sobreMi

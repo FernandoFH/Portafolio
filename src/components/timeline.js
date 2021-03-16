@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 // import { ReactComponent as WorkIcon } from "../images/Work.png"
 // import { ReactComponent as SchoolIcon } from "../images/School.png"
@@ -13,14 +13,13 @@ import {
 import "react-vertical-timeline-component/style.min.css"
 
 export default function timeline() {
+  let workIconStyles = { background: "#06D6A0" }
+  let schoolIconStyles = { background: "#f9c74f" }
 
-    let workIconStyles = { background: "#06D6A0" }
-    let schoolIconStyles = { background: "#f9c74f" }
-
-return (
+  return (
     <div>
-    <VerticalTimeline layout={'1-column-left' }>
-        {timelineElements.map(element => {
+      <VerticalTimeline layout={"1-column-left"}>
+        {timelineElements.map((element) => {
           let isWorkIcon = element.icon === "work"
           let showButton =
             element.buttonText !== undefined &&
@@ -54,10 +53,7 @@ return (
             </VerticalTimelineElement>
           )
         })}
-    </VerticalTimeline>
+      </VerticalTimeline>
     </div>
-   )
+  )
 }
-
-
-     

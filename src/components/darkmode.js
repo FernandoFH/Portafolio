@@ -1,8 +1,7 @@
-import React from 'react'
-import { ThemeToggler } from 'gatsby-plugin-dark-mode'
-import { FaSun, FaMoon } from 'react-icons/fa';
-import styled from '@emotion/styled';
-
+import React from "react"
+import { ThemeToggler } from "gatsby-plugin-dark-mode"
+import { FaSun, FaMoon } from "react-icons/fa"
+import styled from "@emotion/styled"
 
 const Checkbox = styled.div`
   opacity: 0;
@@ -13,7 +12,7 @@ const Label = styled.div`
   background-color: #111;
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
   border-radius: 50px;
   position: relative;
   padding: 5px;
@@ -28,26 +27,25 @@ const Ball = styled.div`
   position: absolute;
   top: 2px;
   left: 2px;
-  height: 22px;  
+  height: 22px;
   width: 22px;
-  transition: transform 0.2s linear; 
-  
-    :hover {
-      transform: translateX(24px);
+  transition: transform 0.2s linear;
+
+  :hover {
+    transform: translateX(24px);
   }
 `
 
 const darkmode = () => (
   <ThemeToggler>
-  {({ theme, toggleTheme }) => (
-    <Label>
-      <FaSun size="15" color= '#f39c12'  />
-      <FaMoon size="15" color= '#f1c40f'/>
-       <Checkbox/>{' '}
-       <Ball />
-    </Label>
-)}
-</ThemeToggler>
+    {({ theme, toggleTheme }) => (
+      <Label>
+        <FaSun size="15" color="#f39c12" />
+        <FaMoon size="15" color="#f1c40f" />
+        <Checkbox /> <Ball />
+      </Label>
+    )}
+  </ThemeToggler>
 )
 
-export default darkmode 
+export default darkmode

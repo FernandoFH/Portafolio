@@ -52,23 +52,20 @@ const Header = ({ siteTitle }) => (
     <Content>
       <p>
         <HomeLink to="/">{siteTitle}</HomeLink>
-        <NavLink  to="/portafolio"
-                  rel="noopener noreferrer"
-                  title="Portafolio"
-                > Portafolio
+        <NavLink to="/portafolio" rel="noopener noreferrer" title="Portafolio">
+          {" "}
+          Portafolio
         </NavLink>
-        <NavLink  to="/blog"                     
-                  rel="noopener noreferrer"
-                  title="Blog"
-                > Blog
+        <NavLink to="/blog" rel="noopener noreferrer" title="Blog">
+          {" "}
+          Blog
         </NavLink>
-        <NavLink  to="/sobreMi"                     
-                  rel="noopener noreferrer"
-                  title="Sobre Mi"
-                > Sobre mí
+        <NavLink to="/sobreMi" rel="noopener noreferrer" title="Sobre Mi">
+          {" "}
+          Sobre mí
         </NavLink>
       </p>
-      </Content>
+    </Content>
   </SiteHeader>
 )
 
