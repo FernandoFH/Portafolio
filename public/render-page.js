@@ -109,11 +109,6 @@ var plugins = [{
     "plugins": []
   }
 }, {
-  plugin: __webpack_require__(/*! ./node_modules/gatsby-plugin-dark-mode/gatsby-ssr */ "./node_modules/gatsby-plugin-dark-mode/gatsby-ssr.js"),
-  options: {
-    "plugins": []
-  }
-}, {
   plugin: __webpack_require__(/*! ./node_modules/gatsby-plugin-manifest/gatsby-ssr */ "./node_modules/gatsby-plugin-manifest/gatsby-ssr.js"),
   options: {
     "plugins": [],
@@ -4589,27 +4584,6 @@ function parsePath(path) {
     hash: hash === "#" ? "" : hash
   };
 }
-
-/***/ }),
-
-/***/ "./node_modules/gatsby-plugin-dark-mode/gatsby-ssr.js":
-/*!************************************************************!*\
-  !*** ./node_modules/gatsby-plugin-dark-mode/gatsby-ssr.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var React = __webpack_require__(/*! react */ "react");
-
-exports.onRenderBody = function (_ref) {
-  var setPreBodyComponents = _ref.setPreBodyComponents;
-  setPreBodyComponents([React.createElement('script', {
-    key: 'gatsby-plugin-dark-mode',
-    dangerouslySetInnerHTML: {
-      __html: "\nvoid function() {\n  window.__onThemeChange = function() {}\n\n  var preferredTheme\n  try {\n    preferredTheme = localStorage.getItem('theme')\n  } catch (err) { }\n\n  function setTheme(newTheme) {\n    if (preferredTheme && document.body.classList.contains(preferredTheme)) {\n      document.body.classList.replace(preferredTheme, newTheme)\n    } else {\n      document.body.classList.add(newTheme)\n    }\n\n    window.__theme = newTheme\n    preferredTheme = newTheme\n    window.__onThemeChange(newTheme)\n  }\n\n  window.__setPreferredTheme = function(newTheme) {\n    setTheme(newTheme)\n    try {\n      localStorage.setItem('theme', newTheme)\n    } catch (err) {}\n  }\n\n  var darkQuery = window.matchMedia('(prefers-color-scheme: dark)')\n  darkQuery.addListener(function(e) {\n    window.__setPreferredTheme(e.matches ? 'dark' : 'light')\n  })\n\n  setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'))\n}()\n    "
-    }
-  })]);
-};
 
 /***/ }),
 

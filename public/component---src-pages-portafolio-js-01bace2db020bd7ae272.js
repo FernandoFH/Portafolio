@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{Uu1k:function(t,o,a){"use strict";a.r(o);a("q1tI");var n=a("Bl7J"),e=a("vrFN"),c=a("qKvR");o.default=function(){return Object(c.b)(n.a,null,Object(c.b)(e.a,{title:"portafolio",keywords:["gatsby","application","react"]}),Object(c.b)("h1",null,"Portafolio"))}}}]);
+//# sourceMappingURL=component---src-pages-portafolio-js-01bace2db020bd7ae272.js.map

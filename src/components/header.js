@@ -2,7 +2,6 @@ import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import PropTypes from "prop-types"
 import React from "react"
-// import Darkmode from "./darkmode"
 
 const Content = styled.div`
   max-width: 860px;
