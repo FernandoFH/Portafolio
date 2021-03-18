@@ -1,7 +1,7 @@
 import React from "react"
 
-// import { ReactComponent as WorkIcon } from "../images/Work.png"
-// import { ReactComponent as SchoolIcon } from "../images/School.png"
+import { ReactComponent as WorkIcon } from "../images/Work.png"
+import { ReactComponent as SchoolIcon } from "../images/School.png"
 
 import timelineElements from "./timelineElements"
 
@@ -15,7 +15,7 @@ import "react-vertical-timeline-component/style.min.css"
 export default function timeline() {
   let workIconStyles = { background: "#06D6A0" }
   let schoolIconStyles = { background: "#f9c74f" }
-
+  
   return (
     <div>
       <VerticalTimeline layout={"1-column-left"}>
@@ -31,7 +31,7 @@ export default function timeline() {
               key={element.key}
               date={element.date}
               dateClassName="date"
-              iconStyle={isWorkIcon ? workIconStyles : schoolIconStyles}
+              iconStyle={isWorkIcon ? workIconStyles : schoolIconStyles} 
             >
               <h3 className="vertical-timeline-element-title">
                 {element.title}
