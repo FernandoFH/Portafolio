@@ -13,8 +13,8 @@ import {
 import "react-vertical-timeline-component/style.min.css"
 
 export default function timeline() {
-  let workIconStyles = { background: "#06D6A0" }
-  let schoolIconStyles = { background: "#f9c74f" }
+  let workIconStyles = { background: "#06D6A0", Image: WorkIcon }
+  let schoolIconStyles = { background: "#f9c74f", Image: SchoolIcon }
   
   return (
     <div>

@@ -6,6 +6,7 @@ import {
   FaLinkedin,
   FaDev,
   FaMedium,
+  FaCaretSquareDown
 } from "react-icons/fa"
 
 const Rrss = styled.ul`
@@ -70,6 +71,17 @@ export default function rrss() {
             title="Github Fernando H"
           >
             <FaGithubSquare size="20" />
+          </a>
+        </Rrss>
+
+        <Rrss>
+          <a
+            href="https://drive.google.com/file/d/1BSnlGQCl51u1-Ug2oNsspxXGPdt-xA0P/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="CV Fernando H"
+          >
+            <FaCaretSquareDown size="20" />
           </a>
         </Rrss>
       </ul>

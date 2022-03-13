@@ -19,7 +19,7 @@ const Contact = styled.contact`
 const sobreMi = () => (
   <Layout>
     <SEO title="sobreMi" keywords={[`gatsby`, `application`, `react`]} />
-    <h1>Sobre mí</h1>
+    <h2>Sobre mí</h2>
     <Timeline />
     <Contact />
   </Layout>

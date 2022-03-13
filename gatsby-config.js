@@ -2,7 +2,7 @@ module.exports = {
   pathPrefix:"/",
   siteMetadata: {
     title: `Fernando H`,
-    subtitle: `Telecom Engineer / Software Developer`,
+    subtitle: `Telecom Engineer / Site Reliability Engineer`,
     description: `Portfolio professional.`,
     author: `@FernandoF_H`,
   },

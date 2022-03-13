@@ -38,7 +38,7 @@ const IndexPage = ({ data }) => {
     <Layout>
       <SEO title="Blog" />
       <Content>
-        <h1>Blogs Name</h1>
+        <h2>Blogs</h2>
         {data.allMarkdownRemark.edges
           .filter(({ node }) => {
             const rawDate = node.frontmatter.rawDate
