@@ -76,7 +76,7 @@ export default function rrss() {
 
         <Rrss>
           <a
-            href="https://drive.google.com/file/d/1BSnlGQCl51u1-Ug2oNsspxXGPdt-xA0P/view?usp=sharing"
+            href="https://drive.google.com/file/d/1aSjlARo6AT008T8TIxtc6grUb7KtmsBI/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             title="CV Fernando H"
