@@ -2,11 +2,10 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
+import Posts from "../components/posts"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-
-import { data } from "../apis/get-post.js"
 
 const Content = styled.div`
   margin: 0 auto;
@@ -38,7 +37,8 @@ const ReadingTime = styled.h5`
 const IndexPage = ({ data }) => {
   return (
     <Layout>
-      <SEO title="Blog" />
+      <SEO title="Blog" keywords={[`gatsby`, `application`, `react`]} />
+      <Posts />
     </Layout>
   )
 }
