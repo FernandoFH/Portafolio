@@ -13,6 +13,9 @@ const { title, description = "SRE · Telecom · Financial Research" } = Astro.pr
     <meta name="description" content={description} />
     <title>{title} · Fernando H</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <style is:global>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -23,9 +26,18 @@ const { title, description = "SRE · Telecom · Financial Research" } = Astro.pr
         --color-text: #e8e8e8;
         --color-muted: #888;
         --color-accent: #6366f1;
-        --font-sans: 'Inter', system-ui, sans-serif;
+        --font-sans: 'Space Grotesk', system-ui, sans-serif;
         --font-mono: 'JetBrains Mono', monospace;
         --max-width: 720px;
+      }
+
+      html.light {
+        --color-bg: #f8f8f8;
+        --color-surface: #ffffff;
+        --color-border: #e0e0e0;
+        --color-text: #111111;
+        --color-muted: #555555;
+        --color-accent: #4f46e5;
       }
 
       body {
