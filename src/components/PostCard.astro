@@ -1,0 +1,63 @@
+---
+interface Props {
+  title: string;
+  date: Date;
+  description: string;
+  slug: string;
+  tags: string[];
+  status: 'draft' | 'published';
+  platform: string;
+  publication: string;
+}
+const { title, date, description, slug, tags, status, platform, publication } = Astro.props;
+const dateStr = date.toLocaleDateString('es-AR', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<article class:list={['post-card', { draft: status === 'draft' }]}>
+  <div class="meta">
+    <time datetime={date.toISOString()}>{dateStr}</time>
+    <span class="dest">{platform} / {publication}</span>
+    {status === 'draft' && <span class="badge">draft</span>}
+  </div>
+  <h2><a href={`/blog/${slug}`}>{title}</a></h2>
+  <p>{description}</p>
+  <ul class="tags">
+    {tags.map(t => <li>#{t}</li>)}
+  </ul>
+</article>
+<style>
+  .post-card {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .post-card.draft { opacity: 0.6; }
+  .meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  time, .dest { color: var(--color-muted); font-size: 0.8rem; }
+  .dest { font-family: var(--font-mono); }
+  .badge {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-muted);
+    font-size: 0.7rem;
+    padding: 0.1em 0.5em;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  h2 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+  h2 a { color: var(--color-text); }
+  h2 a:hover { color: var(--color-accent); text-decoration: none; }
+  p { color: var(--color-muted); font-size: 0.9rem; margin-bottom: 0.75rem; }
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+  .tags li { color: var(--color-muted); font-size: 0.75rem; font-family: var(--font-mono); }
+</style>

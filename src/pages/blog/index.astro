@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import PostCard from '../../components/PostCard.astro';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+<BaseLayout title="Blog" description="Artículos sobre SRE, Golang, AI y más.">
+  <Nav slot="nav" />
+  <h1>Blog</h1>
+  <p class="subtitle">{posts.length} artículos</p>
+  {posts.map(post => (
+    <PostCard
+      title={post.data.title}
+      date={post.data.date}
+      description={post.data.description}
+      slug={post.id}
+      tags={post.data.tags}
+      status={post.data.status}
+      platform={post.data.platform}
+      publication={post.data.publication}
+    />
+  ))}
+  <Footer slot="footer" />
+</BaseLayout>
+<style>
+  h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+  .subtitle { color: var(--color-muted); font-size: 0.85rem; margin-bottom: 2rem; }
+</style>
