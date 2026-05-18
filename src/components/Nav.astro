@@ -9,7 +9,9 @@ const current = Astro.url.pathname;
 ---
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-brand">fh</a>
+    <a href="/" class="nav-brand">
+      <img src="/logo.png" alt="Fernando H" height="32" style="display:block;" />
+    </a>
     <ul>
       {links.map(({ href, label }) => (
         <li>
@@ -37,12 +39,11 @@ const current = Astro.url.pathname;
     gap: 2rem;
   }
   .nav-brand {
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--color-text);
-    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
   }
-  .nav-brand:hover { text-decoration: none; color: var(--color-accent); }
+  .nav-brand:hover { opacity: 0.8; text-decoration: none; }
+  .nav-brand img { display: block; }
   ul { display: flex; gap: 1.5rem; list-style: none; }
   a { color: var(--color-muted); font-size: 0.9rem; }
   a:hover, a.active { color: var(--color-text); text-decoration: none; }
