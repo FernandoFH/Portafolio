@@ -7,9 +7,9 @@ import ProjectCard from '../components/ProjectCard.astro';
 
 const projects = await getCollection('projects');
 ---
-<BaseLayout title="Portfolio" description="Proyectos de SRE, Telecom y Research.">
+<BaseLayout title="Portafolio" description="Proyectos de SRE, Telecom y Research.">
   <Nav slot="nav" />
-  <h1>Portfolio</h1>
+  <h1>Portafolio</h1>
   <p class="subtitle">{projects.length} proyectos</p>
   <div class="grid">
     {projects.map(p => (
