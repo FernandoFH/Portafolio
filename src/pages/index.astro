@@ -7,19 +7,13 @@ import Footer from '../components/Footer.astro';
   <Nav slot="nav" />
   <section class="hero">
     <h1>Fernando H</h1>
-    <ul class="roles">
-      <li>Site Reliability Engineering (SRE)</li>
-      <li>Telecom Engineer</li>
-      <li>Financial Research</li>
-    </ul>
-    <nav class="hero-nav">
-      <a href="/blog">Blog</a>
-      <a href="/portfolio">Portfolio</a>
-      <a href="/about">Sobre Mí</a>
-    </nav>
+    <p class="role-line">
+      <span class="role-prefix">↳ </span><span id="role-text"></span><span class="cursor">|</span>
+    </p>
   </section>
   <Footer slot="footer" />
 </BaseLayout>
+
 <style>
   .hero {
     display: flex;
@@ -34,36 +28,79 @@ import Footer from '../components/Footer.astro';
     letter-spacing: -0.03em;
     color: var(--color-text);
   }
-  .roles {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-  .roles li {
-    color: var(--color-muted);
+  .role-line {
     font-size: 1rem;
-  }
-  .roles li::before {
-    content: '↳ ';
-    color: var(--color-accent);
-  }
-  .hero-nav {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 1rem;
-  }
-  .hero-nav a {
-    font-size: 0.9rem;
     color: var(--color-muted);
-    border: 1px solid var(--color-border);
-    padding: 0.4rem 1rem;
-    border-radius: 4px;
-    transition: border-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: baseline;
   }
-  .hero-nav a:hover {
-    border-color: var(--color-accent);
-    color: var(--color-text);
-    text-decoration: none;
+  .role-prefix {
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+  #role-text {
+    color: var(--color-muted);
+  }
+  .cursor {
+    color: var(--color-accent);
+    animation: blink 0.75s step-end infinite;
+    margin-left: 1px;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
   }
 </style>
+
+<script>
+  const roles = [
+    'Site Reliability Engineer',
+    'Telecom Engineer',
+    'Financial Researcher',
+  ];
+
+  const el = document.getElementById('role-text');
+
+  const TYPE_SPEED   = 80;   // ms per character while typing
+  const ERASE_SPEED  = 40;   // ms per character while erasing
+  const PAUSE_AFTER  = 1800; // ms to hold the full word
+  const PAUSE_BEFORE = 350;  // ms pause before typing next role
+
+  let roleIndex = 0;
+  let charIndex  = 0;
+  let erasing    = false;
+
+  function tick() {
+    const current = roles[roleIndex];
+
+    if (!erasing) {
+      // Typing phase
+      charIndex++;
+      el.textContent = current.slice(0, charIndex);
+
+      if (charIndex === current.length) {
+        // Finished typing — pause then start erasing
+        erasing = true;
+        setTimeout(tick, PAUSE_AFTER);
+        return;
+      }
+      setTimeout(tick, TYPE_SPEED);
+    } else {
+      // Erasing phase
+      charIndex--;
+      el.textContent = current.slice(0, charIndex);
+
+      if (charIndex === 0) {
+        // Finished erasing — move to next role
+        erasing = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        setTimeout(tick, PAUSE_BEFORE);
+        return;
+      }
+      setTimeout(tick, ERASE_SPEED);
+    }
+  }
+
+  // Kick off after a short initial delay
+  setTimeout(tick, PAUSE_BEFORE);
+</script>
