@@ -1,0 +1,41 @@
+---
+const socials = [
+  { label: 'Twitter', href: 'https://twitter.com/fernandof_h', icon: 'twitter' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/fernandoh', icon: 'linkedin' },
+  { label: 'Dev.to', href: 'https://dev.to/fernandofh', icon: 'devdotto' },
+  { label: 'Medium', href: 'https://medium.com/@FernandoFH', icon: 'medium' },
+  { label: 'GitHub', href: 'https://github.com/FernandoFH', icon: 'github' },
+];
+const CDN = 'https://cdn.simpleicons.org';
+---
+<footer>
+  <div class="footer-inner">
+    <div class="socials">
+      {socials.map(({ label, href, icon }) => (
+        <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+          <img src={`${CDN}/${icon}/888888`} alt={label} width="22" height="22" loading="lazy" />
+        </a>
+      ))}
+    </div>
+    <p class="copy">© {new Date().getFullYear()} Fernando H</p>
+  </div>
+</footer>
+<style>
+  footer {
+    border-top: 1px solid var(--color-border);
+    padding: 1.5rem;
+  }
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .socials { display: flex; gap: 1rem; align-items: center; }
+  .socials a { display: flex; opacity: 0.7; transition: opacity 0.2s; }
+  .socials a:hover { opacity: 1; }
+  .copy { color: var(--color-muted); font-size: 0.8rem; }
+</style>
