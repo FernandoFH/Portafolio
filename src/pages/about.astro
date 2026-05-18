@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+<BaseLayout title="Sobre Mí">
+  <Nav slot="nav" />
+  <section class="about">
+    <h1>Sobre Mí</h1>
+    <p>
+      Ingeniero de telecomunicaciones con foco en Site Reliability Engineering (SRE)
+      y research financiero. Construyo sistemas distribuidos confiables y escribo
+      sobre lo que aprendo en el camino.
+    </p>
+    <h2>Áreas</h2>
+    <ul>
+      <li><strong>SRE:</strong> Observabilidad, Kubernetes, automatización de operaciones.</li>
+      <li><strong>Telecom:</strong> Redes, protocolos, infraestructura de telecomunicaciones.</li>
+      <li><strong>Financial Research:</strong> Análisis cuantitativo, Bitcoin, mercados.</li>
+    </ul>
+    <h2>Publicaciones</h2>
+    <ul>
+      <li><a href="https://medium.com/@FernandoFH" target="_blank" rel="noopener">Medium</a> — SRE, C++, TensorFlow, Golang, Quantum, AI, Bitcoin</li>
+      <li><a href="https://dev.to/fernandofh" target="_blank" rel="noopener">Dev.to</a> — Papers Dev To</li>
+      <li>Substack — Ceiba Research · Fernando's Stuff · Coporo Game Studio</li>
+    </ul>
+  </section>
+  <Footer slot="footer" />
+</BaseLayout>
+<style>
+  .about { max-width: 600px; }
+  h1 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+  h2 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.8rem; }
+  p, li { color: var(--color-muted); }
+  ul { padding-left: 1.25rem; }
+  li { margin-bottom: 0.4rem; }
+  strong { color: var(--color-text); }
+</style>
