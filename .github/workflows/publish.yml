@@ -1,0 +1,29 @@
+name: Publish Posts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/posts/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install PyYAML requests
+
+      - name: Publish newly-published posts
+        env:
+          MEDIUM_INTEGRATION_TOKEN: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: python scripts/publish_posts.py
