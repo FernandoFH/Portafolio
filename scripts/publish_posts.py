@@ -4,13 +4,16 @@ Detects posts that transitioned draft→published in this push
 and publishes them to their specified platform (Medium or Dev.to).
 
 Triggered by GitHub Actions on push to main when posts change.
-Requires secrets: MEDIUM_INTEGRATION_TOKEN, DEVTO_API_KEY.
+Requires secrets: DEVTO_API_KEY.
+Medium: semi-manual — script emits import URL, no API token needed.
 """
 import os
 import sys
 import subprocess
 import yaml
 import requests
+
+SITE_URL = "https://fernandoh.com"
 
 
 def parse_frontmatter(content):
@@ -42,44 +45,18 @@ def was_draft_before(filepath):
     return meta.get('status') != 'published'
 
 
-def publish_to_medium(meta, body):
-    token = os.environ['MEDIUM_INTEGRATION_TOKEN']
-
-    user_resp = requests.get(
-        'https://api.medium.com/v1/me',
-        headers={'Authorization': f'Bearer {token}'},
-        timeout=15,
-    )
-    user_resp.raise_for_status()
-    user_id = user_resp.json()['data']['id']
-
-    payload = {
-        'title': meta['title'],
-        'contentFormat': 'markdown',
-        'content': f"# {meta['title']}\n\n{body}",
-        'tags': meta.get('tags', [])[:5],  # Medium allows max 5 tags
-        'publishStatus': 'public',
-    }
-    if meta.get('description'):
-        payload['canonicalUrl'] = ''  # placeholder; update if canonical URL is needed
-
-    resp = requests.post(
-        f'https://api.medium.com/v1/users/{user_id}/posts',
-        headers={
-            'Authorization': f'Bearer {token}',
-            'Content-Type': 'application/json',
-        },
-        json=payload,
-        timeout=15,
-    )
-    resp.raise_for_status()
-    url = resp.json()['data']['url']
-    print(f"  Published to Medium: {url}")
-    return url
+def publish_to_medium(meta, slug):
+    canonical_url = f"{SITE_URL}/posts/{slug}"
+    print(f"  Medium: integration tokens are deprecated — manual import required.")
+    print(f"  1. Open https://medium.com/p/import")
+    print(f"  2. Paste: {canonical_url}")
+    print(f"  (Medium will import content and set the canonical URL automatically)")
+    return None
 
 
-def publish_to_devto(meta, body):
+def publish_to_devto(meta, body, slug):
     api_key = os.environ['DEVTO_API_KEY']
+    canonical_url = f"{SITE_URL}/posts/{slug}"
 
     payload = {
         'article': {
@@ -88,6 +65,7 @@ def publish_to_devto(meta, body):
             'published': True,
             'tags': meta.get('tags', [])[:4],  # Dev.to allows max 4 tags
             'description': meta.get('description', ''),
+            'canonical_url': canonical_url,
         }
     }
 
@@ -134,13 +112,14 @@ def main():
             continue
 
         platform = meta.get('platform')
+        slug = os.path.basename(filepath).replace('.md', '')
         print(f"\nPublishing '{meta.get('title')}' → {platform}")
 
         try:
             if platform == 'medium':
-                publish_to_medium(meta, body)
+                publish_to_medium(meta, slug)
             elif platform == 'devto':
-                publish_to_devto(meta, body)
+                publish_to_devto(meta, body, slug)
             else:
                 print(f"  Unknown platform '{platform}' — skipping")
                 continue
