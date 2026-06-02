@@ -3,7 +3,7 @@ title: "What Every Programmer Should Know About Memory [Review]"
 date: 2026-06-01
 status: draft
 platform: devto
-publication: System
+publication: papers
 tags: [memory, performance, programming]
 description: ""
 ---
