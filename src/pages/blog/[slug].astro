@@ -14,8 +14,9 @@ const { Content } = await render(post);
 const dateStr = post.data.date.toLocaleDateString('es-AR', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
+const canonicalUrl = `https://fernandoh.com/blog/${post.id}/`;
 ---
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout title={post.data.title} description={post.data.description} canonicalUrl={canonicalUrl}>
   <Nav slot="nav" />
   <article>
     <header>
