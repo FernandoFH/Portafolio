@@ -46,7 +46,7 @@ def was_draft_before(filepath):
 
 
 def publish_to_medium(meta, slug):
-    canonical_url = f"{SITE_URL}/posts/{slug}"
+    canonical_url = f"{SITE_URL}/blog/{slug}/"
     print(f"  Medium: integration tokens are deprecated — manual import required.")
     print(f"  1. Open https://medium.com/p/import")
     print(f"  2. Paste: {canonical_url}")
@@ -56,7 +56,7 @@ def publish_to_medium(meta, slug):
 
 def publish_to_devto(meta, body, slug):
     api_key = os.environ['DEVTO_API_KEY']
-    canonical_url = f"{SITE_URL}/posts/{slug}"
+    canonical_url = f"{SITE_URL}/blog/{slug}/"
 
     payload = {
         'article': {
