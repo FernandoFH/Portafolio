@@ -1,7 +1,7 @@
 ---
 title: "Hola Mundo en C++"
 date: 2026-05-30
-status: draft
+status: published
 platform: medium
 publication: cpp
 tags: [c++, system, programming]
