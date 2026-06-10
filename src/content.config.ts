@@ -15,6 +15,7 @@ const posts = defineCollection({
     ]),
     tags: z.array(z.string()),
     description: z.string(),
+    canonicalUrl: z.string().url().optional(),
   }),
 });
 

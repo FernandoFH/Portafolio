@@ -3,6 +3,7 @@ interface Props {
   title: string;
   description?: string;
   canonicalUrl?: string;
+  ogUrl?: string;
   ogImage?: string;
   ogType?: 'website' | 'article';
 }
@@ -10,11 +11,12 @@ const {
   title,
   description = "SRE · Telecom · Financial Research",
   canonicalUrl,
+  ogUrl: explicitOgUrl,
   ogImage = "https://fernandoh.com/logo.png",
   ogType = "website",
 } = Astro.props;
 const fullTitle = `${title} · Fernando H`;
-const ogUrl = canonicalUrl ?? "https://fernandoh.com";
+const ogUrl = explicitOgUrl ?? canonicalUrl ?? "https://fernandoh.com";
 ---
 <!doctype html>
 <html lang="es">

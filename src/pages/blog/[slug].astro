@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
+import { socials } from '../../data/profile.ts';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('posts');
@@ -17,9 +18,17 @@ const { Content } = await render(post);
 const dateStr = post.data.date.toLocaleDateString('es-AR', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
-const canonicalUrl = `https://fernandoh.com/blog/${post.id}/`;
+const selfUrl = `https://fernandoh.com/blog/${post.id}/`;
+const canonicalUrl = post.data.canonicalUrl ?? selfUrl;
+
+const platformInfo: Record<string, { label: string; href: string }> = {
+  medium:   { label: 'Medium',   href: socials.medium },
+  devto:    { label: 'Dev.to',   href: socials.devto },
+  substack: { label: 'Substack', href: socials.substack },
+};
+const pub = platformInfo[post.data.platform];
 ---
-<BaseLayout title={post.data.title} description={post.data.description} canonicalUrl={canonicalUrl} ogType="article">
+<BaseLayout title={post.data.title} description={post.data.description} canonicalUrl={canonicalUrl} ogUrl={selfUrl} ogType="article">
   <Nav slot="nav" />
   <article>
     <header>
@@ -28,7 +37,7 @@ const canonicalUrl = `https://fernandoh.com/blog/${post.id}/`;
       <div class="meta">
         <time datetime={post.data.date.toISOString()}>{dateStr}</time>
         <span>·</span>
-        <span class="dest">{post.data.platform} / {post.data.publication}</span>
+        {pub && <a class="dest" href={pub.href} target="_blank" rel="noopener noreferrer">{pub.label} ↗</a>}
       </div>
       <p class="desc">{post.data.description}</p>
       <ul class="tags">
