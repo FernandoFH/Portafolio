@@ -30,4 +30,17 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { posts, projects };
+const research = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/research' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    description: z.string(),
+    tags: z.array(z.string()),
+    url: z.string().url().optional(),
+    type: z.enum(['paper', 'article', 'note', 'thesis']),
+    status: z.enum(['draft', 'published']),
+  }),
+});
+
+export const collections = { posts, projects, research };
