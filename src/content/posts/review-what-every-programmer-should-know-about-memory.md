@@ -8,8 +8,10 @@ tags: [memory, performance, programming]
 description: ""
 ---
 
-Autor: Ulrich Drepper
-Red Hat, Inc.
-November 21, 2007
+##### What Every Programmer Should Know About Memory
 
-# Abstract
+**Autor:** Ulrich Drepper
+**Red Hat, Inc.**
+_November 21, 2007_
+
+##### Abstract
