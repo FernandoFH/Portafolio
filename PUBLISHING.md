@@ -104,6 +104,23 @@ canonicalUrl: "https://medium.com/@FernandoFH/tu-articulo-abc123"
 - El `og:url` seguirá apuntando a `fernandoh.com` (para compartir en redes)
 - Sin `canonicalUrl`, el canonical apunta a `fernandoh.com` por defecto
 
+**En el Blog**: cuando un post tiene `canonicalUrl`, aparece el chip `Read on Medium ↗` que linkea al artículo real. Sin `canonicalUrl`, solo aparece `→ Medium` (sin link) indicando que está pendiente.
+
+### Atajo: `set-canonical.sh`
+
+Después de importar a Medium (o cuando tengas la URL final del post externo), cerrá el loop con:
+
+```bash
+./scripts/set-canonical.sh <slug> <url>
+```
+
+**Ejemplo:**
+```bash
+./scripts/set-canonical.sh hola-mundo-cpp https://medium.com/@FernandoFH/hola-mundo-abc123
+```
+
+Edita el `.md` automáticamente (inserta si falta, reemplaza si ya existe — sin romper el YAML). Después solo commiteás y pusheás.
+
 ---
 
 ## 5. Secrets necesarios en GitHub

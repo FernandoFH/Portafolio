@@ -21,19 +21,21 @@ const platformInfo = {
 };
 const pub = platformInfo[platform];
 const isPublished = status === 'published';
-const titleHref = isPublished ? (canonicalUrl ?? pub.href) : `/blog/${slug}`;
+const localHref = `/blog/${slug}`;
+const hasExternal = isPublished && !!canonicalUrl;
 ---
 <article class:list={['post-card', { draft: status === 'draft' }]}>
   <div class="meta">
     <time datetime={date.toISOString()}>{dateStr}</time>
-    {pub && <a class="dest" href={pub.href} target="_blank" rel="noopener noreferrer">{pub.label} ↗</a>}
+    {pub && (
+      hasExternal
+        ? <a class="dest" href={canonicalUrl} target="_blank" rel="noopener noreferrer">{pub.label} ↗</a>
+        : <span class="dest dest-pending">→ {pub.label}</span>
+    )}
     {status === 'draft' && <span class="badge">draft</span>}
   </div>
   <h2 transition:name={`post-title-${slug}`}>
-    {isPublished
-      ? <a href={titleHref} target="_blank" rel="noopener noreferrer">{title} ↗</a>
-      : <a href={titleHref}>{title}</a>
-    }
+    <a href={localHref}>{title}</a>
   </h2>
   <p>{description}</p>
   <ul class="tags">
@@ -60,6 +62,7 @@ const titleHref = isPublished ? (canonicalUrl ?? pub.href) : `/blog/${slug}`;
   }
   time, .dest { color: var(--color-muted); font-size: 0.8rem; }
   .dest { font-family: var(--font-mono); }
+  .dest-pending { opacity: 0.6; }
   .badge {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
