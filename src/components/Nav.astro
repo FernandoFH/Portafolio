@@ -46,7 +46,7 @@ const current = Astro.url.pathname;
   .nav-brand:hover { opacity: 0.8; text-decoration: none; }
   .nav-brand img { display: block; }
   ul { display: flex; gap: 1.5rem; list-style: none; }
-  a { color: var(--color-muted); font-size: 0.9rem; }
+  a { color: var(--color-muted); font-size: 0.9rem; transition: color 0.15s ease; }
   a:hover, a.active { color: var(--color-text); text-decoration: none; }
   #theme-toggle {
     background: none;
@@ -66,10 +66,12 @@ const current = Astro.url.pathname;
   }
 </style>
 <script>
-  const toggle = document.getElementById('theme-toggle');
-  const html = document.documentElement;
-  toggle?.addEventListener('click', () => {
-    html.classList.toggle('light');
-    localStorage.setItem('theme', html.classList.contains('light') ? 'light' : 'dark');
+  document.addEventListener('astro:page-load', () => {
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    toggle?.addEventListener('click', () => {
+      html.classList.toggle('light');
+      localStorage.setItem('theme', html.classList.contains('light') ? 'light' : 'dark');
+    });
   });
 </script>

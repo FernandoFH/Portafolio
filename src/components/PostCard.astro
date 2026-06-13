@@ -9,8 +9,9 @@ interface Props {
   tags: string[];
   status: 'draft' | 'published';
   platform: 'medium' | 'devto' | 'substack';
+  canonicalUrl?: string;
 }
-const { title, date, description, slug, tags, status, platform } = Astro.props;
+const { title, date, description, slug, tags, status, platform, canonicalUrl } = Astro.props;
 const dateStr = date.toLocaleDateString('es-AR', { year: 'numeric', month: 'short', day: 'numeric' });
 
 const platformInfo = {
@@ -19,6 +20,8 @@ const platformInfo = {
   substack: { label: 'Substack', href: socials.substack },
 };
 const pub = platformInfo[platform];
+const isPublished = status === 'published';
+const titleHref = isPublished ? (canonicalUrl ?? pub.href) : `/blog/${slug}`;
 ---
 <article class:list={['post-card', { draft: status === 'draft' }]}>
   <div class="meta">
@@ -26,7 +29,12 @@ const pub = platformInfo[platform];
     {pub && <a class="dest" href={pub.href} target="_blank" rel="noopener noreferrer">{pub.label} ↗</a>}
     {status === 'draft' && <span class="badge">draft</span>}
   </div>
-  <h2><a href={`/blog/${slug}`}>{title}</a></h2>
+  <h2 transition:name={`post-title-${slug}`}>
+    {isPublished
+      ? <a href={titleHref} target="_blank" rel="noopener noreferrer">{title} ↗</a>
+      : <a href={titleHref}>{title}</a>
+    }
+  </h2>
   <p>{description}</p>
   <ul class="tags">
     {tags.map(t => <li>#{t}</li>)}
@@ -34,10 +42,15 @@ const pub = platformInfo[platform];
 </article>
 <style>
   .post-card {
-    padding: 1.5rem 0;
+    padding: 1.5rem 0.75rem;
+    margin: 0 -0.75rem;
     border-bottom: 1px solid var(--color-border);
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
   }
-  .post-card.draft { opacity: 0.6; }
+  .post-card:hover { background: var(--color-surface); }
+  .post-card.draft { opacity: 0.7; }
+  .post-card.draft:hover { opacity: 1; }
   .meta {
     display: flex;
     gap: 0.75rem;
@@ -58,7 +71,7 @@ const pub = platformInfo[platform];
     letter-spacing: 0.05em;
   }
   h2 { font-size: 1.1rem; margin-bottom: 0.4rem; }
-  h2 a { color: var(--color-text); }
+  h2 a { color: var(--color-text); transition: color 0.15s ease; }
   h2 a:hover { color: var(--color-accent); text-decoration: none; }
   p { color: var(--color-muted); font-size: 0.9rem; margin-bottom: 0.75rem; }
   .tags {

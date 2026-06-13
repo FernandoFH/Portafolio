@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+
 interface Props {
   title: string;
   description?: string;
@@ -28,7 +30,8 @@ const ogUrl = explicitOgUrl ?? canonicalUrl ?? "https://fernandoh.com";
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="alternate" type="application/rss+xml" title="Fernando H · Blog" href="/rss.xml" />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-    <script is:inline>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light')</script>
+    <ClientRouter />
+    <script is:inline data-astro-rerun>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light')</script>
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -80,7 +83,7 @@ const ogUrl = explicitOgUrl ?? canonicalUrl ?? "https://fernandoh.com";
 
       main { flex: 1; display: flex; flex-direction: column; width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 1rem 1.5rem; }
 
-      a { color: var(--color-accent); text-decoration: none; }
+      a { color: var(--color-accent); text-decoration: none; transition: color 0.15s ease; }
       a:hover { text-decoration: underline; }
 
       pre, code { font-family: var(--font-mono); }

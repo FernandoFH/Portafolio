@@ -6,15 +6,14 @@ import Footer from '../../components/Footer.astro';
 import PostCard from '../../components/PostCard.astro';
 
 const allPosts = await getCollection('posts');
-const posts = (import.meta.env.PROD
-  ? allPosts.filter(p => p.data.status === 'published')
-  : allPosts
-).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const publishedCount = posts.filter(p => p.data.status === 'published').length;
+const draftCount = posts.length - publishedCount;
 ---
 <BaseLayout title="Blog" description="Artículos sobre SRE, Golang, AI y más.">
   <Nav slot="nav" />
   <h1>Blog</h1>
-  <p class="subtitle">{posts.length} artículos</p>
+  <p class="subtitle">{publishedCount} publicados{draftCount > 0 && ` · ${draftCount} en draft`}</p>
   {posts.map(post => (
     <PostCard
       title={post.data.title}
@@ -24,6 +23,7 @@ const posts = (import.meta.env.PROD
       tags={post.data.tags}
       status={post.data.status}
       platform={post.data.platform}
+      canonicalUrl={post.data.canonicalUrl}
     />
   ))}
   <Footer slot="footer" />
