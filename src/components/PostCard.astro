@@ -20,17 +20,13 @@ const platformInfo = {
   substack: { label: 'Substack', href: socials.substack },
 };
 const pub = platformInfo[platform];
-const isPublished = status === 'published';
 const localHref = `/blog/${slug}`;
-const hasExternal = isPublished && !!canonicalUrl;
 ---
 <article class:list={['post-card', { draft: status === 'draft' }]}>
   <div class="meta">
     <time datetime={date.toISOString()}>{dateStr}</time>
     {pub && (
-      hasExternal
-        ? <a class="dest" href={canonicalUrl} target="_blank" rel="noopener noreferrer">{pub.label} ↗</a>
-        : <span class="dest dest-pending">→ {pub.label}</span>
+      <a class="dest" href={canonicalUrl ?? pub.href} target="_blank" rel="noopener noreferrer">{pub.label} ↗</a>
     )}
     {status === 'draft' && <span class="badge">draft</span>}
   </div>
@@ -62,7 +58,6 @@ const hasExternal = isPublished && !!canonicalUrl;
   }
   time, .dest { color: var(--color-muted); font-size: 0.8rem; }
   .dest { font-family: var(--font-mono); }
-  .dest-pending { opacity: 0.6; }
   .badge {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
