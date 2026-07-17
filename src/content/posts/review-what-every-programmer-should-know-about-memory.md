@@ -8,10 +8,8 @@ tags: [memory, performance, programming]
 description: ""
 ---
 
-**Autor:** Ulrich Drepper
-
-**Red Hat, Inc.**
-
-_November 21, 2007_
+**Autor:** Ulrich Drepper\
+**Red Hat, Inc.**\
+November 21, 2007
 
 ##### Abstract
