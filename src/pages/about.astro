@@ -193,7 +193,7 @@ const experience = [
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    border: 2px solid var(--color-accent);
+    border: 2px solid var(--color-highlight);
     background: var(--color-bg);
     margin-top: 4px;
     position: relative;
@@ -205,7 +205,7 @@ const experience = [
     position: absolute;
     inset: -4px;
     border-radius: 50%;
-    border: 1px solid var(--color-accent);
+    border: 1px solid var(--color-highlight);
     opacity: 0.4;
     animation: ring 2.4s ease-out infinite;
   }
@@ -234,9 +234,12 @@ const experience = [
   }
 
   .company {
-    font-size: 0.85rem;
-    color: var(--color-accent);
+    font-size: 0.8rem;
+    color: var(--color-highlight);
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
   }
+  .company::before { content: '// '; opacity: 0.7; }
 
   .meta {
     font-size: 0.75rem;

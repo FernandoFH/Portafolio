@@ -56,7 +56,7 @@ const roles = ['Site Reliability Engineer', 'Telecom Engineer', 'Financial Resea
   .sys-label {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: #38bdf8;
+    color: var(--color-highlight);
     letter-spacing: 0.15em;
     margin: 0;
     opacity: 0.8;
@@ -84,12 +84,12 @@ const roles = ['Site Reliability Engineer', 'Telecom Engineer', 'Financial Resea
   }
 
   .prompt {
-    color: #38bdf8;
+    color: var(--color-highlight);
     font-weight: 700;
   }
 
   .cursor {
-    color: #38bdf8;
+    color: var(--color-highlight);
     animation: blink 1s step-end infinite;
     font-weight: 300;
   }
@@ -109,11 +109,11 @@ const roles = ['Site Reliability Engineer', 'Telecom Engineer', 'Financial Resea
     font-family: var(--font-mono);
     font-size: 0.65rem;
     letter-spacing: 0.12em;
-    color: #38bdf8;
-    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: var(--color-highlight);
+    border: 1px solid color-mix(in srgb, var(--color-highlight) 35%, transparent);
     padding: 0.25em 0.65em;
     border-radius: 2px;
-    background: rgba(56, 189, 248, 0.05);
+    background: color-mix(in srgb, var(--color-highlight) 6%, transparent);
   }
 
   /* ── Right column ─────────────────────────── */
@@ -131,7 +131,7 @@ const roles = ['Site Reliability Engineer', 'Telecom Engineer', 'Financial Resea
     position: absolute;
     inset: 10%;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(56,189,248,0.12) 0%, rgba(99,102,241,0.06) 50%, transparent 70%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-highlight) 12%, transparent) 0%, rgba(99,102,241,0.06) 50%, transparent 70%);
     filter: blur(30px);
     animation: pulse-glow 4s ease-in-out infinite;
   }
@@ -146,7 +146,7 @@ const roles = ['Site Reliability Engineer', 'Telecom Engineer', 'Financial Resea
     width: 85%;
     height: auto;
     animation: float 6s ease-in-out infinite;
-    filter: drop-shadow(0 0 24px rgba(56, 189, 248, 0.4))
+    filter: drop-shadow(0 0 24px color-mix(in srgb, var(--color-highlight) 40%, transparent))
             drop-shadow(0 0 60px rgba(99, 102, 241, 0.2));
     z-index: 1;
   }
@@ -162,7 +162,7 @@ const roles = ['Site Reliability Engineer', 'Telecom Engineer', 'Financial Resea
     position: absolute;
     width: 18px;
     height: 18px;
-    border-color: rgba(56, 189, 248, 0.5);
+    border-color: color-mix(in srgb, var(--color-highlight) 50%, transparent);
     border-style: solid;
   }
   .tl { top: 0; left: 0;  border-width: 1px 0 0 1px; }
