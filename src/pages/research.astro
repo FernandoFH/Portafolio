@@ -43,22 +43,17 @@ const typeLabel: Record<string, string> = {
   <Footer slot="footer" />
 </BaseLayout>
 <style>
-  h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-  .subtitle { color: var(--color-muted); font-size: 0.85rem; margin-bottom: 2.5rem; }
+  h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+  .subtitle { color: var(--color-muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
 
   .research-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
   }
 
-  .research-item {
-    border-left: 2px solid var(--color-border);
-    padding-left: 1.25rem;
-    transition: border-color 0.2s;
-  }
-  .research-item:hover { border-color: var(--color-accent); }
+  .research-item { padding: 1.6rem 0; }
+  .research-item + .research-item { border-top: 1px solid var(--color-border); }
 
   .meta {
     display: flex;
@@ -72,26 +67,24 @@ const typeLabel: Record<string, string> = {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    background: var(--color-accent);
-    color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-muted);
     padding: 0.1rem 0.45rem;
-    border-radius: 3px;
+    border-radius: 4px;
   }
 
   .date { font-size: 0.8rem; color: var(--color-muted); }
 
-  h2 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.4rem; }
+  h2 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 0.4rem; }
   h2 a { color: var(--color-text); }
-  h2 a:hover { color: var(--color-accent); text-decoration: none; }
+  h2 a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-  .description { font-size: 0.9rem; color: var(--color-muted); line-height: 1.6; margin-bottom: 0.6rem; }
+  .description { font-size: 0.92rem; color: var(--color-muted); line-height: 1.6; margin-bottom: 0.6rem; }
 
-  .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .tag {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
     color: var(--color-muted);
-    border: 1px solid var(--color-border);
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
   }
 </style>

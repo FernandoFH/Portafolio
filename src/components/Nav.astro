@@ -70,8 +70,8 @@ const current = Astro.url.pathname;
     const toggle = document.getElementById('theme-toggle');
     const html = document.documentElement;
     toggle?.addEventListener('click', () => {
-      html.classList.toggle('light');
-      localStorage.setItem('theme', html.classList.contains('light') ? 'light' : 'dark');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
     });
   });
 </script>
