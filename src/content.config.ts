@@ -7,12 +7,8 @@ const posts = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     status: z.enum(['draft', 'published']),
-    platform: z.enum(['medium', 'devto', 'substack']),
-    publication: z.enum([
-      'sre', 'cpp', 'tensorflow', 'golang', 'quantum', 'ai', 'bitcoin',
-      'papers',
-      'ceiba', 'stuff', 'coporo',
-    ]),
+    // Override opcional: sin él, la plataforma se deriva de los tags (publish-map.yml)
+    platform: z.enum(['medium', 'devto', 'substack']).optional(),
     tags: z.array(z.string()),
     description: z.string(),
     canonicalUrl: z.string().url().optional(),

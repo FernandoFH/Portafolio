@@ -1,0 +1,36 @@
+# publish-map.yml — ruteo de posts por tags.
+#
+# Regla: se recorren los tags del post EN EL ORDEN del frontmatter;
+# el primer tag que aparezca acá define la ÚNICA plataforma destino.
+# Si ningún tag matchea, el post queda publicado solo en el blog (con aviso).
+# Un `platform:` explícito en el frontmatter del post pisa este mapa.
+#
+# Editá las listas de tags libremente — minúsculas, tal como se escriben
+# en el frontmatter de los posts.
+
+platforms:
+  substack:
+    publications:
+      - name: Ceiba Research
+        tags: [bitcoin, finance, quant, markets, trading]
+
+  medium:
+    publications:
+      - name: Site Reliability Engineering en Español
+        tags: [sre, observability, observabilidad, kubernetes, devops, opentelemetry]
+      - name: Cpp en Español
+        tags: [c++, cpp]
+      - name: TensorFlow en Español
+        tags: [tensorflow, machine-learning, ml, ai]
+      - name: Golang en Español
+        tags: [golang, go, goroutines, concurrencia]
+
+  devto:
+    publications:
+      - name: Dev.to
+        tags: [
+          system-design, algorithms, algoritmos, data-structures,
+          software-architecture, scalability, escalabilidad,
+          software-engineering, programming, performance, memory,
+          distributed-systems, papers,
+        ]

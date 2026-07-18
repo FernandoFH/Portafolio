@@ -1,11 +1,22 @@
 #!/usr/bin/env python3
 """
-Detects posts that transitioned draft→published in this push
-and publishes them to their specified platform (Medium or Dev.to).
+Detects posts that transitioned draft→published in this push and routes each
+one to a SINGLE platform according to its tags (see publish-map.yml).
 
-Triggered by GitHub Actions on push to main when posts change.
-Requires secrets: DEVTO_API_KEY.
-Medium: semi-manual — script emits import URL, no API token needed.
+Routing rules:
+  1. An explicit `platform:` in the post frontmatter overrides everything.
+  2. Otherwise, post tags are scanned in frontmatter order; the first tag
+     found in publish-map.yml decides the platform (and publication).
+  3. No match → the post stays blog-only (notice, not an error).
+
+Platforms:
+  - devto:    published automatically via API (secret DEVTO_API_KEY).
+  - medium:   write API deprecated — a GitHub issue with the import
+              checklist is opened instead.
+  - substack: no official API — a GitHub issue with the manual steps
+              is opened instead.
+
+Triggered by GitHub Actions on push to Dev when posts change.
 """
 import os
 import sys
@@ -14,6 +25,7 @@ import yaml
 import requests
 
 SITE_URL = "https://fernandoh.com"
+PUBLISH_MAP = "publish-map.yml"
 
 
 def parse_frontmatter(content):
@@ -23,6 +35,37 @@ def parse_frontmatter(content):
     if len(parts) < 3:
         return {}, content
     return yaml.safe_load(parts[1]), parts[2].strip()
+
+
+def load_tag_index(path=PUBLISH_MAP):
+    """tag -> (platform, publication name). Warns on tags mapped twice."""
+    with open(path) as f:
+        data = yaml.safe_load(f)
+
+    index = {}
+    for platform, cfg in (data.get('platforms') or {}).items():
+        for pub in (cfg.get('publications') or []):
+            for tag in (pub.get('tags') or []):
+                t = str(tag).lower()
+                if t in index:
+                    prev_platform, prev_pub = index[t]
+                    print(f"WARNING: tag '{t}' ya mapeado a {prev_platform} "
+                          f"({prev_pub}) — se ignora el duplicado en {platform}")
+                    continue
+                index[t] = (platform, pub.get('name'))
+    return index
+
+
+def resolve_platform(meta, tag_index):
+    """Returns (platform, publication, reason) or (None, None, None)."""
+    if meta.get('platform'):
+        return meta['platform'], None, 'override en frontmatter'
+    for tag in (meta.get('tags') or []):
+        t = str(tag).lower()
+        if t in tag_index:
+            platform, publication = tag_index[t]
+            return platform, publication, f"tag '{t}'"
+    return None, None, None
 
 
 def get_changed_posts():
@@ -45,13 +88,52 @@ def was_draft_before(filepath):
     return meta.get('status') != 'published'
 
 
-def publish_to_medium(meta, slug):
+def open_issue(title, body):
+    try:
+        r = subprocess.run(
+            ['gh', 'issue', 'create', '--title', title, '--body', body],
+            capture_output=True, text=True
+        )
+        if r.returncode == 0:
+            print(f"  Issue creado: {r.stdout.strip()}")
+        else:
+            print(f"  (No se pudo crear el issue: {r.stderr.strip()})")
+    except FileNotFoundError:
+        print("  (gh no disponible — seguí los pasos impresos arriba)")
+
+
+def publish_to_medium(meta, slug, publication):
     canonical_url = f"{SITE_URL}/blog/{slug}/"
-    print(f"  Medium: integration tokens are deprecated — manual import required.")
-    print(f"  1. Open https://medium.com/p/import")
-    print(f"  2. Paste: {canonical_url}")
-    print(f"  (Medium will import content and set the canonical URL automatically)")
-    return None
+    pub_line = f" y agregalo a la publication **{publication}**" if publication else ""
+    print(f"  Medium: la API de escritura está deprecada — import manual.")
+    print(f"  1. Abrir https://medium.com/p/import y pegar: {canonical_url}")
+    print(f"  2. Agregar el artículo a la publication: {publication or '(ninguna)'}")
+    print(f"  3. Cerrar el loop: ./scripts/set-canonical.sh {slug} <url-de-medium>")
+    open_issue(
+        f"Publicar manualmente: {meta['title']} → Medium",
+        f"El post **{meta['title']}** ya está publicado en el blog y su destino es "
+        f"**Medium**{' — ' + publication if publication else ''}.\n\n"
+        f"- [ ] Abrir https://medium.com/p/import e importar: {canonical_url}\n"
+        f"- [ ] Verificar que Medium detectó el canonical hacia el blog{pub_line}\n"
+        f"- [ ] Cerrar el loop: `./scripts/set-canonical.sh {slug} <url-de-medium>`\n"
+    )
+
+
+def publish_to_substack(meta, slug, publication):
+    canonical_url = f"{SITE_URL}/blog/{slug}/"
+    print(f"  Substack: sin API oficial — publicación manual.")
+    print(f"  1. Nuevo post en {publication or 'tu Substack'}: substack.com/publish/post/new")
+    print(f"  2. Pegar el Markdown del post")
+    print(f"  3. SEO settings → canonical URL: {canonical_url}")
+    print(f"  4. Cerrar el loop: ./scripts/set-canonical.sh {slug} <url-de-substack>")
+    open_issue(
+        f"Publicar manualmente: {meta['title']} → Substack",
+        f"El post **{meta['title']}** ya está publicado en el blog y su destino es "
+        f"**Substack**{' — ' + publication if publication else ''}.\n\n"
+        f"- [ ] Crear el post en substack.com/publish/post/new y pegar el Markdown\n"
+        f"- [ ] SEO settings → canonical URL: {canonical_url}\n"
+        f"- [ ] Cerrar el loop: `./scripts/set-canonical.sh {slug} <url-de-substack>`\n"
+    )
 
 
 def publish_to_devto(meta, body, slug):
@@ -90,6 +172,7 @@ def main():
         print("No post files changed — nothing to publish.")
         return
 
+    tag_index = load_tag_index()
     published_count = 0
     errors = []
 
@@ -111,15 +194,24 @@ def main():
             print(f"Skipping {filepath}: already published in a prior commit")
             continue
 
-        platform = meta.get('platform')
+        platform, publication, reason = resolve_platform(meta, tag_index)
         slug = os.path.basename(filepath).replace('.md', '')
-        print(f"\nPublishing '{meta.get('title')}' → {platform}")
+
+        if not platform:
+            print(f"\nAviso: '{meta.get('title')}' no tiene ningún tag mapeado en "
+                  f"{PUBLISH_MAP} — queda publicado solo en el blog.")
+            continue
+
+        dest = f"{platform}" + (f" ({publication})" if publication else "")
+        print(f"\nPublishing '{meta.get('title')}' → {dest} [vía {reason}]")
 
         try:
-            if platform == 'medium':
-                publish_to_medium(meta, slug)
-            elif platform == 'devto':
+            if platform == 'devto':
                 publish_to_devto(meta, body, slug)
+            elif platform == 'medium':
+                publish_to_medium(meta, slug, publication)
+            elif platform == 'substack':
+                publish_to_substack(meta, slug, publication)
             else:
                 print(f"  Unknown platform '{platform}' — skipping")
                 continue

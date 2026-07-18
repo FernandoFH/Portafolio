@@ -23,7 +23,7 @@ const platformInfo: Record<string, { label: string; href: string }> = {
   devto:    { label: 'Dev.to',   href: socials.devto },
   substack: { label: 'Substack', href: socials.substack },
 };
-const pub = platformInfo[post.data.platform];
+const pub = post.data.platform ? platformInfo[post.data.platform] : undefined;
 ---
 <BaseLayout title={post.data.title} description={post.data.description} canonicalUrl={canonicalUrl} ogUrl={selfUrl} ogType="article">
   <Nav slot="nav" />
