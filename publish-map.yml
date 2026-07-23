@@ -12,7 +12,7 @@ platforms:
   substack:
     publications:
       - name: Ceiba Research
-        tags: [bitcoin, finance, quant, markets, trading]
+        tags: [bitcoin, finance, quant, markets, trading, bonds]
 
   medium:
     publications:
@@ -30,7 +30,9 @@ platforms:
       - name: Dev.to
         tags: [
           system-design, algorithms, algoritmos, data-structures,
-          software-architecture, scalability, escalabilidad,
+          software-architecture, architecture, scalability, escalabilidad,
           software-engineering, programming, performance, memory,
           distributed-systems, papers,
+          quantum-computing, quantum, computacion-cuantica,
+          high-performance-computing, hpc,
         ]
