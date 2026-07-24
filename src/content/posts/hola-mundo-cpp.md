@@ -20,3 +20,15 @@ int main() {
     return 0;
 }
 ```
+
+_Local Compiler:_
+
+```bash
+g++ holaMundo.cpp -o holaMundo && ./holaMundo
+```
+
+_Formating Files Like Google:_
+
+```bash
+~/.local/share/nvim/mason/bin/clang-format --style Google --dump-config > .clang-format
+```
