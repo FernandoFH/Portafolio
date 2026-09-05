@@ -202,6 +202,10 @@ def publish_to_devto(meta, body, slug, filepath):
     resp.raise_for_status()
     data = resp.json()
     set_frontmatter_field(filepath, 'devtoId', data['id'])
+    # Link the blog card/post to the live article (falls back to the profile
+    # while draft). Respect a canonicalUrl the author set by hand.
+    if not meta.get('canonicalUrl'):
+        set_frontmatter_field(filepath, 'canonicalUrl', f'"{data["url"]}"')
     print(f"  Published to Dev.to (id {data['id']}): {data['url']}")
     return data['url']
 
