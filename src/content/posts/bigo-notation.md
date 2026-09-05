@@ -13,8 +13,6 @@ description: ""
 devtoId: 4584696
 ---
 
-> Demo de prueba de push — este contenido es temporal.
-
 La notación Big-O describe cómo crece el costo de un algoritmo a medida que crece la entrada. Es la forma estándar de hablar de eficiencia sin atarse a un hardware concreto.
 
 - `O(1)` — tiempo constante
@@ -24,3 +22,6 @@ La notación Big-O describe cómo crece el costo de un algoritmo a medida que cr
 - `O(n²)` — cuadrático
 
 (Contenido placeholder para testear el pipeline de publicación.)
+
+> Demo de prueba de push — este contenido es temporal.
+> Demo de prueba de push — este contenido es temporal.
