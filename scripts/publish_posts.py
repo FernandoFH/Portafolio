@@ -164,18 +164,21 @@ def publish_to_substack(meta, slug, publication):
 
 
 def publish_to_devto(meta, body, slug, filepath):
-    """Create the article on first publish, or update it on later edits.
+    """Create, update, or unpublish the article, keyed by `devtoId`.
 
-    Idempotency key is `devtoId` in the post frontmatter: absent → POST (create)
-    and the returned id is written back into the .md; present → PUT (update)."""
+    - no devtoId + published  → POST (create), id written back to the .md
+    - devtoId    + published  → PUT (update, same article — never duplicates)
+    - devtoId    + draft      → PUT published:false (unpublish on the platform)
+    A draft with no devtoId was never on Dev.to, so main() skips it."""
     api_key = os.environ['DEVTO_API_KEY']
     canonical_url = f"{SITE_URL}/blog/{slug}/"
     headers = {'api-key': api_key, 'Content-Type': 'application/json'}
+    is_published = meta.get('status') == 'published'
 
     article = {
         'title': meta['title'],
         'body_markdown': body,
-        'published': True,
+        'published': is_published,  # False on a draft → unpublishes on Dev.to
         'tags': meta.get('tags', [])[:4],  # Dev.to allows max 4 tags
         'description': meta.get('description', ''),
         'canonical_url': canonical_url,
@@ -192,7 +195,8 @@ def publish_to_devto(meta, body, slug, filepath):
         )
         resp.raise_for_status()
         url = resp.json()['url']
-        print(f"  Updated on Dev.to (id {devto_id}): {url}")
+        verb = "Updated" if is_published else "Unpublished"
+        print(f"  {verb} on Dev.to (id {devto_id}): {url}")
         return url
 
     resp = requests.post(
@@ -230,28 +234,37 @@ def main():
 
         meta, body = parse_frontmatter(content)
 
-        if meta.get('status') != 'published':
-            print(f"Skipping {filepath}: status={meta.get('status')!r}")
-            continue
-
         platform, publication, reason = resolve_platform(meta, tag_index)
         slug = os.path.basename(filepath).replace('.md', '')
 
         if not platform:
-            print(f"\nAviso: '{meta.get('title')}' no tiene ningún tag mapeado en "
-                  f"{PUBLISH_MAP} — queda publicado solo en el blog.")
+            if meta.get('status') == 'published':
+                print(f"\nAviso: '{meta.get('title')}' no tiene ningún tag mapeado en "
+                      f"{PUBLISH_MAP} — queda publicado solo en el blog.")
+            else:
+                print(f"Skipping {filepath}: status={meta.get('status')!r}")
             continue
 
-        # Medium/Substack no tienen API de update: sólo actuamos en la primera
-        # transición draft→published. Dev.to sí actualiza en cada edición.
-        first_publish = was_draft_before(filepath)
-        if platform in ('medium', 'substack') and not first_publish:
-            print(f"Skipping {filepath}: ya publicado y {platform} no tiene API de update")
-            continue
+        is_published = meta.get('status') == 'published'
+        devto_id = meta.get('devtoId')
 
-        dest = f"{platform}" + (f" ({publication})" if publication else "")
-        verb = "Publishing" if first_publish else "Updating"
-        print(f"\n{verb} '{meta.get('title')}' → {dest} [vía {reason}]")
+        if not is_published:
+            # Draft: despublicar en Dev.to si estuvo publicado (tiene devtoId).
+            # Medium/Substack no tienen API de update → no se pueden despublicar.
+            if not (platform == 'devto' and devto_id):
+                print(f"Skipping {filepath}: status={meta.get('status')!r}")
+                continue
+            print(f"\nUnpublishing '{meta.get('title')}' → Dev.to (id {devto_id})")
+        else:
+            # Medium/Substack no tienen API de update: sólo actuamos en la primera
+            # transición draft→published. Dev.to sí actualiza en cada edición.
+            first_publish = was_draft_before(filepath)
+            if platform in ('medium', 'substack') and not first_publish:
+                print(f"Skipping {filepath}: ya publicado y {platform} no tiene API de update")
+                continue
+            dest = f"{platform}" + (f" ({publication})" if publication else "")
+            verb = "Publishing" if first_publish else "Updating"
+            print(f"\n{verb} '{meta.get('title')}' → {dest} [vía {reason}]")
 
         try:
             if platform == 'devto':
