@@ -35,4 +35,6 @@ platforms:
           distributed-systems, papers,
           quantum-computing, quantum, computacion-cuantica,
           high-performance-computing, hpc,
+          rust, rustlang, rust-en-espanol,
+          ai-infrastructure, ai-infra, mlops, inference,
         ]

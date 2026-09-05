@@ -12,6 +12,11 @@ const posts = defineCollection({
     tags: z.array(z.string()),
     description: z.string(),
     canonicalUrl: z.string().url().optional(),
+    // Serie (agrupa posts relacionados; se refleja como serie nativa en Dev.to)
+    series: z.string().optional(),
+    // ID del artículo en Dev.to — lo escribe el pipeline al publicar; permite
+    // que las ediciones posteriores actualicen (PUT) en vez de duplicar.
+    devtoId: z.number().optional(),
   }),
 });
 

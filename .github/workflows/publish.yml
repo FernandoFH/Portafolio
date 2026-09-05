@@ -7,7 +7,7 @@ on:
       - 'src/content/posts/**'
 
 permissions:
-  contents: read
+  contents: write   # para commitear el devtoId de vuelta al frontmatter
   issues: write
 
 jobs:
@@ -31,3 +31,13 @@ jobs:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/publish_posts.py
+
+      - name: Commit Dev.to article ids back to frontmatter
+        run: |
+          if [ -n "$(git status --porcelain src/content/posts)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add src/content/posts
+            git commit -m "chore: store dev.to article ids [skip ci]"
+            git push origin HEAD:Dev
+          fi

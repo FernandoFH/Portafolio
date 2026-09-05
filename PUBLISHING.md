@@ -31,6 +31,8 @@ tags: [golang, sre]     # ¡deciden la plataforma! ver publish-map.yml
 description: "Descripción corta del post."
 platform: medium        # OPCIONAL — override manual, pisa el ruteo por tags
 canonicalUrl: ""        # opcional — ver sección Canonical URL
+series: "Algorithms"    # OPCIONAL — agrupa posts; se refleja como serie en Dev.to
+devtoId: 123456         # AUTO — lo escribe el pipeline; no lo edites a mano
 ```
 
 ## 3. Ruteo por tags (publish-map.yml)
@@ -65,9 +67,29 @@ git push origin Dev
 
 GitHub Actions detecta la transición draft→published y según la plataforma ruteada:
 
-### Dev.to — automático
+### Dev.to — automático (con actualizaciones)
 `publish_posts.py` sube el artículo vía API con `canonical_url` apuntando a
 `fernandoh.com/blog/mi-post/`. Requiere el secret `DEVTO_API_KEY`.
+
+**Primera publicación:** `POST` crea el artículo y el pipeline escribe el
+`devtoId` de vuelta en el frontmatter (commit automático `[skip ci]`).
+
+**Ediciones posteriores:** cada push que toque un post `published` con `devtoId`
+hace `PUT` y **actualiza** el artículo en Dev.to (título, cuerpo, tags, serie).
+El blog sigue siendo la fuente de verdad — editás el `.md`, pusheás, y Dev.to se
+sincroniza solo. (Medium/Substack no tienen API de update: sólo primera publicación.)
+
+### Series (agrupar posts)
+
+Dev.to agrupa como serie todos los posts que compartan el mismo `series`.
+No hay que "crear" la serie aparte: nace con el primer post que la use.
+
+```bash
+./scripts/set-series.sh "Algorithms" bigo-notation data-structures-everyone-should-know
+```
+
+Inserta/reemplaza `series: "Algorithms"` en el frontmatter de cada post. Después
+commit & push como siempre.
 
 ### Medium — semi-manual (API de escritura deprecada)
 El workflow **abre un issue en GitHub** con el checklist:

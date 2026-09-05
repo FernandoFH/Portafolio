@@ -10,11 +10,14 @@ Routing rules:
   3. No match → the post stays blog-only (notice, not an error).
 
 Platforms:
-  - devto:    published automatically via API (secret DEVTO_API_KEY).
-  - medium:   write API deprecated — a GitHub issue with the import
-              checklist is opened instead.
-  - substack: no official API — a GitHub issue with the manual steps
-              is opened instead.
+  - devto:    create-or-update via API (secret DEVTO_API_KEY). First publish
+              POSTs and stores the returned id as `devtoId` in the frontmatter;
+              later edits to a published post PUT that id (the blog stays the
+              source of truth). `series` groups posts into a Dev.to series.
+  - medium:   write API deprecated — a GitHub issue with the import checklist
+              is opened instead (first publish only, no update API).
+  - substack: no official API — a GitHub issue with the manual steps is opened
+              instead (first publish only, no update API).
 
 Triggered by GitHub Actions on push to Dev when posts change.
 """
@@ -35,6 +38,30 @@ def parse_frontmatter(content):
     if len(parts) < 3:
         return {}, content
     return yaml.safe_load(parts[1]), parts[2].strip()
+
+
+def set_frontmatter_field(filepath, key, value):
+    """Insert or replace `key: value` inside the frontmatter of filepath,
+    without touching the rest of the YAML. Used to store the Dev.to article id."""
+    with open(filepath) as f:
+        lines = f.readlines()
+
+    if not lines or lines[0].strip() != '---':
+        return
+    end = next((i for i in range(1, len(lines)) if lines[i].strip() == '---'), None)
+    if end is None:
+        return
+
+    new_line = f"{key}: {value}\n"
+    for i in range(1, end):
+        if lines[i].startswith(f"{key}:"):
+            lines[i] = new_line
+            break
+    else:
+        lines.insert(end, new_line)
+
+    with open(filepath, 'w') as f:
+        f.writelines(lines)
 
 
 def load_tag_index(path=PUBLISH_MAP):
@@ -136,34 +163,47 @@ def publish_to_substack(meta, slug, publication):
     )
 
 
-def publish_to_devto(meta, body, slug):
+def publish_to_devto(meta, body, slug, filepath):
+    """Create the article on first publish, or update it on later edits.
+
+    Idempotency key is `devtoId` in the post frontmatter: absent → POST (create)
+    and the returned id is written back into the .md; present → PUT (update)."""
     api_key = os.environ['DEVTO_API_KEY']
     canonical_url = f"{SITE_URL}/blog/{slug}/"
+    headers = {'api-key': api_key, 'Content-Type': 'application/json'}
 
-    payload = {
-        'article': {
-            'title': meta['title'],
-            'body_markdown': body,
-            'published': True,
-            'tags': meta.get('tags', [])[:4],  # Dev.to allows max 4 tags
-            'description': meta.get('description', ''),
-            'canonical_url': canonical_url,
-        }
+    article = {
+        'title': meta['title'],
+        'body_markdown': body,
+        'published': True,
+        'tags': meta.get('tags', [])[:4],  # Dev.to allows max 4 tags
+        'description': meta.get('description', ''),
+        'canonical_url': canonical_url,
     }
+    if meta.get('series'):
+        article['series'] = meta['series']  # native Dev.to series grouping
+
+    devto_id = meta.get('devtoId')
+
+    if devto_id:
+        resp = requests.put(
+            f'https://dev.to/api/articles/{devto_id}',
+            headers=headers, json={'article': article}, timeout=15,
+        )
+        resp.raise_for_status()
+        url = resp.json()['url']
+        print(f"  Updated on Dev.to (id {devto_id}): {url}")
+        return url
 
     resp = requests.post(
         'https://dev.to/api/articles',
-        headers={
-            'api-key': api_key,
-            'Content-Type': 'application/json',
-        },
-        json=payload,
-        timeout=15,
+        headers=headers, json={'article': article}, timeout=15,
     )
     resp.raise_for_status()
-    url = resp.json()['url']
-    print(f"  Published to Dev.to: {url}")
-    return url
+    data = resp.json()
+    set_frontmatter_field(filepath, 'devtoId', data['id'])
+    print(f"  Published to Dev.to (id {data['id']}): {data['url']}")
+    return data['url']
 
 
 def main():
@@ -190,10 +230,6 @@ def main():
             print(f"Skipping {filepath}: status={meta.get('status')!r}")
             continue
 
-        if not was_draft_before(filepath):
-            print(f"Skipping {filepath}: already published in a prior commit")
-            continue
-
         platform, publication, reason = resolve_platform(meta, tag_index)
         slug = os.path.basename(filepath).replace('.md', '')
 
@@ -202,12 +238,20 @@ def main():
                   f"{PUBLISH_MAP} — queda publicado solo en el blog.")
             continue
 
+        # Medium/Substack no tienen API de update: sólo actuamos en la primera
+        # transición draft→published. Dev.to sí actualiza en cada edición.
+        first_publish = was_draft_before(filepath)
+        if platform in ('medium', 'substack') and not first_publish:
+            print(f"Skipping {filepath}: ya publicado y {platform} no tiene API de update")
+            continue
+
         dest = f"{platform}" + (f" ({publication})" if publication else "")
-        print(f"\nPublishing '{meta.get('title')}' → {dest} [vía {reason}]")
+        verb = "Publishing" if first_publish else "Updating"
+        print(f"\n{verb} '{meta.get('title')}' → {dest} [vía {reason}]")
 
         try:
             if platform == 'devto':
-                publish_to_devto(meta, body, slug)
+                publish_to_devto(meta, body, slug, filepath)
             elif platform == 'medium':
                 publish_to_medium(meta, slug, publication)
             elif platform == 'substack':
