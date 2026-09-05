@@ -2,14 +2,14 @@
 title: "Big-O Notation"
 date: 2026-08-24
 platform: devto
-status: draft
+status: published
 tags: [performance, programming, algorithms] # el primer tag mapeado en publish-map.yml define la plataforma
+series: "Algorithms"
 description: ""
 
 #  → Agregá tags (deciden la plataforma según publish-map.yml)
 #  → Edita el archivo, cambia status a 'published' cuando esté listo
 #  → git add . && git commit -m 'post: bigo-notation' && git push origin Dev
-series: "Algorithms"
 ---
 
 > Demo de prueba de push — este contenido es temporal.
