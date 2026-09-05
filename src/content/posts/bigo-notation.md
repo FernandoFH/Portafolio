@@ -2,7 +2,7 @@
 title: "Big-O Notation"
 date: 2026-08-24
 platform: devto
-status: published
+status: draft
 tags: [performance, programming, algorithms] # el primer tag mapeado en publish-map.yml define la plataforma
 series: "Algorithms"
 description: ""
