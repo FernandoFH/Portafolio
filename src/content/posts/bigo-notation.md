@@ -2,7 +2,7 @@
 title: "Big-O Notation"
 date: 2026-08-24
 platform: devto
-status: draft
+status: published
 tags: [performance, programming, algorithms] # el primer tag mapeado en publish-map.yml define la plataforma
 series: "Algorithms"
 description: ""
@@ -22,6 +22,3 @@ La notación Big-O describe cómo crece el costo de un algoritmo a medida que cr
 - `O(n²)` — cuadrático
 
 (Contenido placeholder para testear el pipeline de publicación.)
-
-> Demo de prueba de push — este contenido es temporal.
-> Demo de prueba de push — este contenido es temporal.
