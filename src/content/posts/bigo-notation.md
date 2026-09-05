@@ -11,6 +11,7 @@ description: ""
 #  → Edita el archivo, cambia status a 'published' cuando esté listo
 #  → git add . && git commit -m 'post: bigo-notation' && git push origin Dev
 devtoId: 4584696
+canonicalUrl: "https://dev.to/fernandofh/big-o-notation-3927"
 ---
 
 La notación Big-O describe cómo crece el costo de un algoritmo a medida que crece la entrada. Es la forma estándar de hablar de eficiencia sin atarse a un hardware concreto.

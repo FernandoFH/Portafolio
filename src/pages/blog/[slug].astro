@@ -34,7 +34,7 @@ const pub = post.data.platform ? platformInfo[post.data.platform] : undefined;
       <div class="meta">
         <time datetime={post.data.date.toISOString()}>{dateStr}</time>
         <span>·</span>
-        {pub && <a class="dest" href={post.data.canonicalUrl ?? pub.href} target="_blank" rel="noopener noreferrer">{pub.label} ↗</a>}
+        {pub && <a class="dest" href={post.data.status === 'published' && post.data.canonicalUrl ? post.data.canonicalUrl : pub.href} target="_blank" rel="noopener noreferrer">{pub.label} ↗</a>}
       </div>
       <p class="desc">{post.data.description}</p>
       <ul class="tags">

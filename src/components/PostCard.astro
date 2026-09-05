@@ -26,7 +26,7 @@ const localHref = `/blog/${slug}`;
   <div class="meta">
     <time datetime={date.toISOString()}>{dateStr}</time>
     {pub && (
-      <a class="dest" href={canonicalUrl ?? pub.href} target="_blank" rel="noopener noreferrer">{pub.label} ↗</a>
+      <a class="dest" href={status === 'published' && canonicalUrl ? canonicalUrl : pub.href} target="_blank" rel="noopener noreferrer">{pub.label} ↗</a>
     )}
     {status === 'draft' && <span class="badge">draft</span>}
   </div>

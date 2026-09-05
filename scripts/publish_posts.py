@@ -195,6 +195,10 @@ def publish_to_devto(meta, body, slug, filepath):
         )
         resp.raise_for_status()
         url = resp.json()['url']
+        # Self-heal: posts publicados con devtoId pero sin canonicalUrl (p.ej.
+        # creados antes de este campo) reciben el link en su próximo update.
+        if is_published and not meta.get('canonicalUrl'):
+            set_frontmatter_field(filepath, 'canonicalUrl', f'"{url}"')
         verb = "Updated" if is_published else "Unpublished"
         print(f"  {verb} on Dev.to (id {devto_id}): {url}")
         return url
